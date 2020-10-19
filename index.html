@@ -55,11 +55,11 @@
 		});
 		Instascan.Camera.getCameras().then(function (cameras){
 			if(cameras.length>0){
-        alert(cameras.length);
+        //alert(cameras.length);
 				scanner.start(cameras[0]);
 				$('[name="options"]').on('change',function(){
-          alert(cameras.length);
-					alert($(this).val());
+          //alert(cameras.length);
+					//alert($(this).val());
 					if($(this).val()==1){
 						if(cameras[0]!=""){
 							scanner.start(cameras[0]);
