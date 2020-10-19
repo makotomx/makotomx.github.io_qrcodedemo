@@ -2,10 +2,8 @@
 var CACHE_NAME = 'pwa-sample-caches';
 var urlsToCache = [
     '/index.html',
-    '/sw.js',
-    '/js/app.js',
     '/js/jsQR.js',
-    'images/icons/icon-192x192.png',
+    '/images/icons/icon-192x192.png',
 ];
 
 // インストール処理
