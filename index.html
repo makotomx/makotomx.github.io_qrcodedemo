@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
+	<link rel="manifest" href="manifest.json">
+    <title>How to use Instascan an HTML5 QR scanner</title>
+
+
+
+</head>
+
+<body>
+
+	
+	<div class="container-fluid">
+		<div class="row">
+
+			<div class="col">
+				<p></p>
+				<h1>取得した値 <span id="span1"></span></h1>
+				<div class>
+					<video id="preview" cstyle="width:320px;height:240px;"></video>
+				</div>
+				<script type="text/javascript">
+
+					<!-- service workerの登録関係 -->
+					if ('serviceWorker' in navigator) {
+						navigator.serviceWorker.register('service_worker.js').then(function(registration) {
+						console.log('ServiceWorker registration successful with scope: ', registration.scope);
+					}).catch(function(err) {
+						console.log('ServiceWorker registration failed: ', err);
+					});
+					}
+
+
+					var scanner = new Instascan.Scanner({ video: document.getElementById('preview'), scanPeriod: 5, mirror: false });
+					scanner.addListener('scan',function(content){
+						document.getElementById("span1").textContent = content;
+						//alert(content);
+						//window.location.href=content;
+					});
+					Instascan.Camera.getCameras().then(function (cameras){
+						if(cameras.length>0){
+							scanner.start(cameras[0]);
+							$('[name="options"]').on('change',function(){
+								if($(this).val()==1){
+									if(cameras[0]!=""){
+										scanner.start(cameras[0]);
+									}else{
+										alert('No Front camera found!');
+									}
+								}else if($(this).val()==2){
+									if(cameras[1]!=""){
+										scanner.start(cameras[1]);
+									}else{
+										alert('No Back camera found!');
+									}
+								}
+							});
+						}else{
+							console.error('No cameras found.');
+							alert('No cameras found.');
+						}
+					}).catch(function(e){
+						console.error(e);
+						alert(e);
+					});
+				</script>
+
+
+			</div>
+		</div>
+	</div>
+	
+</body>
+</html>
