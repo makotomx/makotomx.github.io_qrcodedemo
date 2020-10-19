@@ -1,7 +1,11 @@
 // キャッシュファイルの指定
 var CACHE_NAME = 'pwa-sample-caches';
 var urlsToCache = [
-    '/poster-keisuke.github.io/',
+    '/index.html',
+    '/sw.js',
+    '/js/app.js',
+    '/js/jsQR.js',
+    'images/icons/icon-192x192.png',
 ];
 
 // インストール処理

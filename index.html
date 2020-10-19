@@ -81,7 +81,19 @@
 				<div class="col-sm-12">
 					<video id="preview" class="p-1 border" style="width:100%;"></video>
 				</div>
-				<script type="text/javascript">
+        <script type="text/javascript">
+
+          <!-- service workerの登録関係 -->
+					if ('serviceWorker' in navigator) {
+						navigator.serviceWorker.register('service_worker.js').then(function(registration) {
+						console.log('ServiceWorker registration successful with scope: ', registration.scope);
+					}).catch(function(err) {
+						console.log('ServiceWorker registration failed: ', err);
+					});
+					}
+
+
+
 					var scanner = new Instascan.Scanner({ video: document.getElementById('preview'), scanPeriod: 5, mirror: false });
 					scanner.addListener('scan',function(content){
 						alert(content);
