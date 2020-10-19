@@ -59,6 +59,9 @@
       <p>Pure JavaScript QR code decoding library.</p>
       <div id="loadingMessage">🎥 Unable to access video stream (please make sure you have a webcam enabled)</div>
       <canvas id="canvas" hidden></canvas>
+
+      <video id="video" muted autoplay playsinline></video>
+	    
       <div id="output" hidden>
         <div id="outputMessage">No QR code detected.</div>
         <div hidden><b>Data:</b> <span id="outputData"></span></div>
@@ -73,7 +76,8 @@
 	});
 	}		
 	      
-	let video = document.createElement("video");
+//	let video = document.createElement("video");
+	let video = document.getElementById("video");
         let canvasElement = document.getElementById("canvas");
         let canvas = canvasElement.getContext("2d");
         let loadingMessage = document.getElementById("loadingMessage");
