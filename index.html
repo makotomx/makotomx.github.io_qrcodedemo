@@ -4,80 +4,31 @@
       <meta charset="utf-8">
       <title>jsQR Demo</title>
       <script src="js/jsQR.js"></script>
-      <link href="https://fonts.googleapis.com/css?family=Ropa+Sans" rel="stylesheet">
       <link rel="manifest" href="manifest.json">
-      <style>
-        body {
-          font-family: 'Ropa Sans', sans-serif;
-          color: #333;
-          max-width: 640px;
-          margin: 0 auto;
-          position: relative;
-        }
-    
-        #githubLink {
-          position: absolute;
-          right: 0;
-          top: 12px;
-          color: #2D99FF;
-        }
-    
-        h1 {
-          margin: 10px 0;
-          font-size: 40px;
-        }
-    
-        #loadingMessage {
-          text-align: center;
-          padding: 40px;
-          background-color: #eee;
-        }
-    
-        #canvas {
-          width: 100%;
-        }
-    
-        #output {
-          margin-top: 20px;
-          background: #eee;
-          padding: 10px;
-          padding-bottom: 0;
-        }
-    
-        #output div {
-          padding-bottom: 10px;
-          word-wrap: break-word;
-        }
-    
-        #noQRFound {
-          text-align: center;
-        }
-      </style>
     </head>
     <body>
       <h1>jsQR Demo</h1>
       <p>Pure JavaScript QR code decoding library.</p>
       <div id="loadingMessage">🎥 Unable to access video stream (please make sure you have a webcam enabled)</div>
       <canvas id="canvas" hidden></canvas>
-
-      <video id="video" muted autoplay playsinline></video>
-	    
+      <video id="videox" muted autoplay playsinline></video>	    
       <div id="output" hidden>
         <div id="outputMessage">No QR code detected.</div>
         <div hidden><b>Data:</b> <span id="outputData"></span></div>
       </div>
       <script>
-	<!-- service workerの登録関係 -->
-	if ('serviceWorker' in navigator) {
-		navigator.serviceWorker.register('service_worker.js').then(function(registration) {
-		console.log('ServiceWorker registration successful with scope: ', registration.scope);
-	}).catch(function(err) {
-		console.log('ServiceWorker registration failed: ', err);
-	});
-	}		
+	      <!-- service workerの登録関係 -->
+	      if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.register('service_worker.js').then(function(registration) {
+          console.log('ServiceWorker registration successful with scope: ', registration.scope);
+        }).catch(function(err) {
+          console.log('ServiceWorker registration failed: ', err);
+        });
+        }		
 	      
-//	let video = document.createElement("video");
-	let video = document.getElementById("video");
+        //	let video = document.createElement("video");
+	      //  let video = document.getElementById("video");
+	      let video = document.createElement("video");
         let canvasElement = document.getElementById("canvas");
         let canvas = canvasElement.getContext("2d");
         let loadingMessage = document.getElementById("loadingMessage");
@@ -86,7 +37,9 @@
         let outputData = document.getElementById("outputData");
         let prevCode = "";
 	      
-	video.autoplay = true;
+	      video.autoplay = true;
+        video.style.visibility ="hidden";
+        canvasElement.style.visibility = "hidden";
     
         function drawLine(begin, end, color) {
           canvas.beginPath();
@@ -106,7 +59,7 @@
         });
     
         function tick() {
-	  //	viodeo.play();
+
           loadingMessage.innerText = "⌛ Loading video..."
           if (video.readyState === video.HAVE_ENOUGH_DATA) {
             loadingMessage.hidden = true;
@@ -136,6 +89,8 @@
               outputData.parentElement.hidden = true;
               prevCode = "";
             }
+          }els{
+            video.play();
           }
           requestAnimationFrame(tick);
         }
