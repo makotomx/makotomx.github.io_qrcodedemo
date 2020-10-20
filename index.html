@@ -116,6 +116,13 @@
               outputMessage.hidden = false;
               outputData.parentElement.hidden = true;
               prevCode = "";
+		    
+	      // mitukarimasenn
+	      // 0.3秒後にもう一度チェックする
+	    setTimeout( () => {
+	      tick();
+	    }, 300);
+		    
             }
           }
           requestAnimationFrame(tick);
