@@ -42,6 +42,8 @@
     let outputData = document.getElementById("outputData");
     let outputData2 = document.getElementById("outputData2");
     let prevCode = "";
+    let code;
+    let imageData;
         
     video.autoplay = true;
     video.style.visibility ="hidden";
@@ -89,10 +91,12 @@
             canvasElement.height = video.videoHeight;
             canvasElement.width = video.videoWidth;
             canvas.drawImage(video, 0, 0, canvasElement.width, canvasElement.height);
-            var imageData = canvas.getImageData(0, 0, canvasElement.width, canvasElement.height);
-            var code = jsQR(imageData.data, imageData.width, imageData.height, {
+            imageData = canvas.getImageData(0, 0, canvasElement.width, canvasElement.height);
+/*
+	    code = jsQR(imageData.data, imageData.width, imageData.height, {
               inversionAttempts: "dontInvert",
             });
+*/
             if (code) {
               if(code!=prevCode){
                 //drawLine(code.location.topLeftCorner, code.location.topRightCorner, "#FF3B58");
