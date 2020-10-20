@@ -15,6 +15,7 @@
       <div id="output" hidden>
         <div id="outputMessage">No QR code detected.</div>
         <div hidden><b>Data:</b> <span id="outputData"></span></div>
+        <div><b>Last Data:</b> <span id="outputData2"></span></div>
       </div>
       <script>
 	      <!-- service workerの登録関係 -->
@@ -35,9 +36,11 @@
         let outputContainer = document.getElementById("output");
         let outputMessage = document.getElementById("outputMessage");
         let outputData = document.getElementById("outputData");
+        let outputData2 = document.getElementById("outputData2");
         let prevCode = "";
 	      
 	      video.autoplay = true;
+        video.controls = true;
         video.style.visibility ="hidden";
         canvasElement.style.visibility = "hidden";
     
@@ -75,18 +78,21 @@
             });
             if (code) {
               if(code!=prevCode){
-                drawLine(code.location.topLeftCorner, code.location.topRightCorner, "#FF3B58");
-                drawLine(code.location.topRightCorner, code.location.bottomRightCorner, "#FF3B58");
-                drawLine(code.location.bottomRightCorner, code.location.bottomLeftCorner, "#FF3B58");
-                drawLine(code.location.bottomLeftCorner, code.location.topLeftCorner, "#FF3B58");
+                // drawLine(code.location.topLeftCorner, code.location.topRightCorner, "#FF3B58");
+                // drawLine(code.location.topRightCorner, code.location.bottomRightCorner, "#FF3B58");
+                // drawLine(code.location.bottomRightCorner, code.location.bottomLeftCorner, "#FF3B58");
+                // drawLine(code.location.bottomLeftCorner, code.location.topLeftCorner, "#FF3B58");
                 outputMessage.hidden = true;
+                outputData2.parentElement.hidden = false;
                 outputData.parentElement.hidden = false;
                 outputData.innerText = code.data;
+                outputData2.innerText = code.data;
                 prevCode = code.data;
               }
             } else {
               outputMessage.hidden = false;
               outputData.parentElement.hidden = true;
+              outputData2.parentElement.hidden = false;
               prevCode = "";
             }
           }els{
